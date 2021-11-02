@@ -1,3 +1,5 @@
+export {};
+
 type WindowStates = 'open' | 'closed' | 'minimized';
 
 let windowState: WindowStates = 'open';
@@ -37,4 +39,35 @@ let myArray: Array<number>;
 // Array of objects with a name property
 let personsArray: Array<{ name: string }>
 
+// Generics provide variables to types
+type StringArray = Array<string>;
+// type StringArray = string[];
+
+function printArray(input: StringArray) {
+  input.forEach(item => console.log(item));
+}
+
+printArray(['a', 'b', 'c']);
+
+type NumberArray = Array<number>;
+
+// An array of objects, each with a name and age
+type People = Array<{name: string, age: number}>
+
+///////////////////////////////////////////////////////////
+interface Backpack<Type> {
+  add: (item: Type) => void;
+  get: () => Type;
+}
+
+// tells TypeScript a const called backpack exists.
+// backpack still does not exist in JS
+declare const backpack: Backpack<string>;
+
+// Won't work in JS because backpack doesn't exist
+// const myItem = backpack.get();
+
+// Will not compile in TypeScript because .add() takes a string
+// passed from generic
+// backpack.add(23);
 
