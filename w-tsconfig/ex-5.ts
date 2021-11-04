@@ -57,3 +57,40 @@ function multipleValue(input: string | null | undefined) {
   return 0;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// CONTROL FLOW ANALYSIS
+
+// After the if statement TypeScript knows that padding must be a string and allows 
+// us to access padding.length
+function padLeft2(padding: number | string, input: string) {
+  if (typeof padding === 'number') {
+    return ' '.repeat(padding) + input;
+  }
+
+  return padding.length;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// USING TYPE PREDICATES
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+let pet: Fish | Bird;
+
+pet = (
+  Math.random() > 0.5
+  ? { swim: () => null }
+  : { fly: () => null }
+);
+
+
+function isFish(pet: Fish | Bird): pet is Fish {
+  return (pet as Fish).swim !== undefined;
+}
+
+if (isFish(pet)) {
+  pet.swim();
+  console.log('pet is fish');
+} else {
+  pet.fly();
+}
